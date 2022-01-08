@@ -30,12 +30,12 @@
                     <button class="btn btn-primary" type="submit">{{ __('Save') }}</button>
                 </div>
                 </form>
-                <form action="{{ route('admin.checklist_groups.destroy', $checklistGroup->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger mx-3 mb-2 mt-2" type="submit" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete') }}</button>
-                </form>
             </div>
+            <form action="{{ route('admin.checklist_groups.destroy', $checklistGroup->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger mb-2 mt-2" type="submit" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete Checklist Group') }}</button>
+            </form>
         </div>
     </div>
 </div>
