@@ -7,6 +7,7 @@
 
     <!-- CoreUI for Bootstrap CSS -->
     <link rel="stylesheet" href="https://coreui.io/demo/4.0/free/css/style.css">
+    @livewireStyles
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
@@ -92,6 +93,10 @@
     </div>
 </div>
 <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+@livewireScripts
+<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
+@yield('scripts')
 </body>
 </html>
 

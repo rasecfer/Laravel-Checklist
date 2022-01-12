@@ -43,25 +43,7 @@
             <div class="card">
                 <div class="card-header">{{ __('List of Tasks') }}</div>
                 <div class="card-body">
-                    <table class="table">
-                        <tbody>
-                        @foreach($checklist->tasks as $task)
-                            <tr>
-                                <td>{{ $task->name }}</td>
-                                <td align="right">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a class="btn btn-sm btn-secondary" href="{{ route('admin.checklists.tasks.edit', [$checklist, $task]) }}">{{ __('Edit') }}</a>
-                                        <form action="{{ route('admin.checklists.tasks.destroy', [$checklist, $task]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('{{ __('Are you sure?') }}')">{{ __('Delete') }}</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    @livewire('tasks-table', ['checklist' => $checklist])
                 </div>
 
             </div>
@@ -88,7 +70,7 @@
                                     <label class="form-label" for="description">{{ __('Description') }}</label>
                                     <textarea
                                         class="form-control {{ $errors->storetask->has('description') ? 'is-invalid' : '' }}"
-                                        id="description"
+                                        id="task-textarea"
                                         name="description"
                                         rows="4"
                                     >{{ old('description') }}</textarea>
@@ -108,4 +90,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#task-textarea' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 @endsection

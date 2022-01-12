@@ -27,7 +27,7 @@
                                     <label class="form-label" for="description">{{ __('Description') }}</label>
                                     <textarea
                                         class="form-control {{ $errors->storetask->has('description') ? 'is-invalid' : '' }}"
-                                        id="description"
+                                        id="task-textarea"
                                         name="description"
                                         rows="4"
                                     >{{ $task->description }}</textarea>
@@ -47,4 +47,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#task-textarea' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 @endsection
