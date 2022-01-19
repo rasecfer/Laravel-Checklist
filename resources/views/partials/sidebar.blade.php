@@ -39,9 +39,18 @@
                 </li>
             @endforeach
 
+            <li class="nav-title">{{ __('Manage Data') }}</li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-browser') }}"></use>
+                    </svg> {{ __('Users') }}
+                </a>
+            </li>
+
         @endif
 
-        <li class="nav-title">{{ __('Session') }}</li>
+        {{--<li class="nav-title">{{ __('Session') }}</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();
@@ -54,7 +63,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-        </li>
+        </li>--}}
 
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
