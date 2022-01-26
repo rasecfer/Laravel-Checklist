@@ -6,16 +6,29 @@
 
             <li class="nav-title">{{ __('Manage Checklists') }}</li>
             @foreach(\App\Models\ChecklistGroup::with('checklists')->get() as $group)
-                <li class="nav-group show"><a class="nav-link" href="{{ route('admin.checklist_groups.edit', $group->id) }}">
+                <li class="nav-group show"><a class="nav-link"
+                                              href="{{ route('admin.checklist_groups.edit', $group->id) }}">
                         <svg class="nav-icon">
-                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle') }}"></use>
+                            <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-library') }}"></use>
                         </svg> {{ $group->name }}</a>
                     <ul class="nav-group-items">
                         @foreach($group->checklists as $checklist)
-                            <li class="nav-item"><a class="nav-link" href="{{ route('admin.checklist_groups.checklists.edit', [$group, $checklist]) }}"><span class="nav-icon"></span>{{ $checklist->name }}</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="padding: .5rem .5rem .5rem 80px"
+                                   href="{{ route('admin.checklist_groups.checklists.edit', [$group, $checklist]) }}">
+                                    <svg class="nav-icon">
+                                        <use
+                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
+                                    </svg>{{ $checklist->name }}
+                                </a>
+                            </li>
                         @endforeach
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.checklist_groups.checklists.create', $group) }}">
+                                <svg class="nav-icon">
+                                    <use
+                                        xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-playlist-add') }}"></use>
+                                </svg>
                                 {{ __('New Checklist') }}
                             </a>
                         </li>
@@ -24,6 +37,9 @@
             @endforeach
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.checklist_groups.create') }}">
+                    <svg class="nav-icon">
+                        <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-library-add') }}"></use>
+                    </svg>
                     {{ __('New Checklist Group') }}
                 </a>
             </li>
@@ -47,6 +63,26 @@
                     </svg> {{ __('Users') }}
                 </a>
             </li>
+
+        @else
+            @foreach(\App\Models\ChecklistGroup::with('checklists')->get() as $group)
+                <li class="nav-title">
+                         {{ $group->name }}
+                    <ul class="nav-group-items">
+                        @foreach($group->checklists as $checklist)
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{{ route('users.checklists.show', [$checklist]) }}">
+                                    <svg class="nav-icon">
+                                        <use
+                                            xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
+                                    </svg>{{ $checklist->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
 
         @endif
 
