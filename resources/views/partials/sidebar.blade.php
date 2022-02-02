@@ -5,26 +5,27 @@
         @if(auth()->user()->is_admin)
 
             <li class="nav-title">{{ __('Manage Checklists') }}</li>
-            @foreach(\App\Models\ChecklistGroup::with('checklists')->get() as $group)
+            @foreach($admin_menu as $group)
                 <li class="nav-group show"><a class="nav-link"
-                                              href="{{ route('admin.checklist_groups.edit', $group->id) }}">
+                                              href="{{ route('admin.checklist_groups.edit', $group['id']) }}">
                         <svg class="nav-icon">
                             <use xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-library') }}"></use>
-                        </svg> {{ $group->name }}</a>
+                        </svg> {{ $group['name'] }}</a>
                     <ul class="nav-group-items">
-                        @foreach($group->checklists as $checklist)
+                        @foreach($group['checklists'] as $checklist)
                             <li class="nav-item">
                                 <a class="nav-link" style="padding: .5rem .5rem .5rem 80px"
-                                   href="{{ route('admin.checklist_groups.checklists.edit', [$group, $checklist]) }}">
+                                   href="{{ route('admin.checklist_groups.checklists.edit', [$group['id'], $checklist['id']]) }}">
                                     <svg class="nav-icon">
                                         <use
                                             xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
-                                    </svg>{{ $checklist->name }}
+                                    </svg>{{ $checklist['name'] }}
                                 </a>
                             </li>
                         @endforeach
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.checklist_groups.checklists.create', $group) }}">
+                            <a class="nav-link" href="{{ route('admin.checklist_groups.checklists.create', $group) }}"
+                               style="padding: 1rem .5rem .5rem 80px">
                                 <svg class="nav-icon">
                                     <use
                                         xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-playlist-add') }}"></use>
@@ -67,7 +68,7 @@
         @else
             @foreach($user_menu as $group)
                 <li class="nav-title">
-                         {{ $group['name'] }}
+                    {{ $group['name'] }}
                     @if($group['is_new'])
                         <span class="badge badge-sm bg-info ms-auto">New</span>
                     @elseif($group['is_updated'])

@@ -62,7 +62,7 @@ class ChecklistController extends Controller
      */
     public function update(StoreChecklistRequest $request, ChecklistGroup $checklistGroup, Checklist $checklist)
     {
-        $checklistGroup->checklists()->update($request->validated());
+        $checklist->update($request->validated());
 
         return redirect()->route('home');
     }
