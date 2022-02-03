@@ -30,5 +30,6 @@ Route::group(['middleware' => ['auth', 'save_last_action_timestamp']], function(
         Route::resource('checklists.tasks', \App\Http\Controllers\Admin\TaskController::class);
 
         Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+        Route::post('images', [\App\Http\Controllers\Admin\ImageController::class, 'store'])->name('images.store');
     });
 });
