@@ -41,7 +41,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request, Checklist $checklist)
     {
         // Obtiene la última posicion
-        $position = $checklist->tasks()->max('position') + 1;
+        $position = $checklist->tasks()->where('user_id', null)->max('position') + 1;
 
         $checklist->tasks()->create($request->validated() + ['position' => $position]);
 
@@ -96,7 +96,7 @@ class TaskController extends Controller
     public function destroy(Checklist $checklist, Task $task)
     {
         // Reordenar la posición de las tareas
-        $checklist->tasks()->where('position', '>', $task->position)
+        $checklist->tasks()->where('user_id', null)->where('position', '>', $task->position)
             ->update(['position' => DB::raw('position - 1')]);
 
         $task->delete();
