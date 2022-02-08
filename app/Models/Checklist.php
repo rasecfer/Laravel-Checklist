@@ -15,4 +15,9 @@ class Checklist extends Model
     public function tasks() {
         return $this->hasMany(Task::class);
     }
+
+    public function user_tasks()
+    {
+        return $this->hasMany(Task::class)->where('user_id', auth()->id());
+    }
 }

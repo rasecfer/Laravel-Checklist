@@ -20,7 +20,12 @@ class MenuComposer
     {
         $menu = \App\Models\ChecklistGroup::with(['checklists' => function ($query) {
             $query->whereNull('user_id');
-        }])->get();
+        },
+            'checklists.tasks' => function ($query) {
+                $query->whereNull('tasks.user_id');
+            },
+            'checklists.user_tasks'
+        ])->get();
 
         $view->with('admin_menu', $menu);
 
@@ -42,8 +47,8 @@ class MenuComposer
                     $checklist_updated_at = $user_checklist->where('checklist_id', $checklist['id'])->max('updated_at');
                     $checklist['is_new'] = !($group['is_new']) && Carbon::create($checklist['created_at'])->greaterThan($checklist_updated_at);
                     $checklist['is_updated'] = !($group['is_new']) && !($group['is_updated']) && !($checklist['is_new']) && Carbon::create($checklist['updated_at'])->greaterThan($checklist_updated_at);
-                    $checklist['tasks'] = 1;
-                    $checklist['completed'] = 0;
+                    $checklist['tasks_count'] = count($checklist['tasks']);
+                    $checklist['completed_tasks_count'] = count($checklist['user_tasks']);
                 }
                 $groups[] = $group;
             }

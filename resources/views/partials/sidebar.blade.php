@@ -83,6 +83,11 @@
                                         <use
                                             xlink:href="{{ asset('vendors/@coreui/icons/svg/free.svg#cil-list') }}"></use>
                                     </svg>{{ $checklist['name'] }}
+                                    @livewire('completed-tasks-counter', [
+                                        'tasks_count' => $checklist['tasks_count'],
+                                        'completed_tasks' => $checklist['completed_tasks_count'],
+                                        'checklist_id' => $checklist['id']
+                                    ])
                                     @if($checklist['is_new'])
                                         <span class="badge badge-sm bg-info ms-auto">New</span>
                                     @elseif($checklist['is_updated'])
