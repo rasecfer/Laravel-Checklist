@@ -1,5 +1,5 @@
 <div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -12,10 +12,11 @@
                                 @foreach($checklists as $checklist)
                                     <div class="col-md-4">
                                         <div class="text-medium-emphasis">{{ $checklist->name }}</div>
-                                        <div class="fw-semibold">{{ $checklist->user_tasks_count }}
-                                            /{{ $checklist->tasks_count }} (40%)
-                                        </div>
                                         @if($checklist->tasks_count > 0)
+                                            <div class="fw-semibold">{{ $checklist->user_tasks_count }}
+                                                /{{ $checklist->tasks_count }} ({{ ($checklist->user_tasks_count
+                                                         / $checklist->tasks_count) * 100 }}%)
+                                            </div>
                                             <div class="progress progress-thin mt-2">
                                                 <div class="progress-bar bg-success" role="progressbar"
                                                      style="width: {{ ($checklist->user_tasks_count
@@ -24,6 +25,9 @@
                                                          / $checklist->tasks_count) * 100 }}" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         @else
+                                            <div class="fw-semibold">{{ $checklist->user_tasks_count }}
+                                                /{{ $checklist->tasks_count }} (0%)
+                                            </div>
                                             <div class="progress progress-thin mt-2">
                                                 <div class="progress-bar bg-success" role="progressbar"
                                                      style="width: 0%"
